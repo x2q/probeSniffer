@@ -66,6 +66,9 @@ if args.filter != None:
 monitor_iface = args.interface
 alreadyStopping = False
 
+dbPath = "/var/data/probesniffer/" 
+sys.stdout.write("Path for probesniffer.db: " + dbPath)
+
 
 def restart_line():
     sys.stdout.write('\r')
@@ -132,6 +135,7 @@ if externalOptionsSet:
 
 print("[I] Loading MAC database...")
 with open(script_path + "oui.json", 'r') as content_file:
+    print("Path: " + script_path + "oui.json")
     obj = content_file.read()
 resolveObj = json.loads(obj)
 
@@ -143,7 +147,7 @@ def stop():
         alreadyStopping = True
         print("\n[I] Stopping...")
         if not noSQL:
-            print("[I] Results saved to 'DB-probeSniffer.db'")
+            print("[I] Results saved to '" + dbPath + "DB-probeSniffer.db'")
         print("[I] probeSniffer stopped.")
         raise SystemExit
 
@@ -264,7 +268,7 @@ def SQLConncetor():
     try:
         debug("sqlconnector called")
         global db
-        db = sqlite3.connect("DB-probeSniffer.db")
+        db = sqlite3.connect(dbPath + "DB-probeSniffer.db")
         cursor = db.cursor()
         return cursor
     except KeyboardInterrupt:
