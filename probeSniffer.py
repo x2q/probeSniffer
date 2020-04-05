@@ -67,7 +67,7 @@ monitor_iface = args.interface
 alreadyStopping = False
 
 dbPath = "/var/data/probesniffer/" 
-sys.stdout.write("Path for probesniffer.db: " + dbPath)
+sys.stdout.write("Path for DB: " + dbPath)
 
 
 def restart_line():
@@ -346,7 +346,7 @@ def main():
         print("[I] Setting up SQLite...")
 
         try:
-            setupDB = sqlite3.connect("DB-probeSniffer.db")
+            setupDB = sqlite3.connect(dbPath + "DB-probeSniffer.db")
         except:
             print("\n[!] Cant connect to database. Permission error?\n")
             exit()
